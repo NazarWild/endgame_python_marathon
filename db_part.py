@@ -52,12 +52,11 @@ class workWithDb:
         self.conn.commit()
         data = self.req.fetchall()
         x = PrettyTable()
-
         if data:
             if data[0]:
                 data = data[0]
-            x.add_column('..', ['Method', 'URL', 'Params'])
-            x.add_column('Request info', [data[1], data[2], data[4]])
+            x.add_column('..', ['Method', 'URL', 'Params', 'Headers', 'Request body', 'Status'])
+            x.add_column('Request info', [data[1], data[2], data[4], data[5], data[3], data[6]])
         print(x)
         print("---Response---")
         self.req.execute(f"SELECT * FROM Responses WHERE req_id = {req_id}")
@@ -96,10 +95,10 @@ class workWithDb:
         print('---Request history---')
         self.req.execute(f"SELECT * FROM Requests")
         x = PrettyTable()
-        x.field_names = ['..', 'Method', 'URL', 'Status', 'Request body', 'Params', 'Headers']
+        x.field_names = ['..', 'Method', 'URL', 'Request body', 'Params', 'Headers', 'Status']
         for i in self.req.fetchall():
             x.add_row(i)
-        print(x.get_string(fields=['..', 'Method', 'URL', 'Status', 'Request body', 'Params']))
+        print(x.get_string(fields=['..', 'Method', 'URL', 'Request body', 'Params', 'Status']))
         req_id = input('Enter request index to view full info, or "q" to quit: ')
         while req_id != 'q':
             self.selectRequests(int(req_id))

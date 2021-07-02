@@ -15,7 +15,7 @@ def manual_start(db, url=None, method=None, params=None, headers=None, auth=None
     url_pattern = "^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
     if url and re.search(url_pattern, url):
         if method == 'GET':
-            data = get_request(db, url, method, params, headers, auth, trig)
+            data = get_request(db, url, method, params, headers, auth, trig=trig)
         elif method == 'POST':
             data = post_request(db, url, method, params, headers, auth, body, trig)
         elif method == 'PUT':

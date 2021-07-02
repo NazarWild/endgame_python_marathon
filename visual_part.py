@@ -167,6 +167,14 @@ def fillingHistory(history, bd):
         i = i + 1
 
 
+def widgetsToDict(widgDict):
+    dick = {}
+    for i in widgDict:
+        dick[i.get()] = widgDict[i].get()
+    return dick
+
+
+
 def methods_changed(event):
     print(f'New method selected!')
 
@@ -191,9 +199,9 @@ def render_packed(root, db=None):
     notebook.add(frame1, text='Main')
     notebook.add(frame2, text='History')
 
-    tree = ttk.Treeview(frame1)
-    tree.column('#0', width=800, stretch=YES)
-    tree.grid(row=0, rowspan=25, column=9, columnspan=8)
+    tree = ttk.Treeview(frame1, height=100)
+    tree.column('#0', width=820, stretch=YES)
+    tree.grid(row=0, rowspan=100, column=9, columnspan=8)
 
     meth = tk.StringVar()
     methods = ttk.Combobox(frame1, textvariable=meth, values=('GET', 'POST', 'PATCH', 'PUT', 'DELETE'))
@@ -206,9 +214,10 @@ def render_packed(root, db=None):
     url_entry.grid(row=0, column=3, columnspan=4)
 
     def send_request():
+        print(widgetsToDict(params))
         data = manual_start(db, url=url_entry.get(), method=methods.get(), params=None,
                             headers=None, auth=None, body=None, trig=False)
-        fillingHistory(history, db)
+        # fillingHistory(history, db)
         if res_view.get() == "TreeView":
             tree.delete(*tree.get_children())
             string = "{" + f'{len(data)}' + "}"
@@ -219,38 +228,43 @@ def render_packed(root, db=None):
     send_button = tk.Button(frame1, text="SEND", command=send_request)
     send_button.grid(row=0, column=7, columnspan=2)
 
-    history = ttk.Treeview(frame2, height=100)
-    history.grid(column=0, row=0, sticky=(N, W, E, S))
-    s = ttk.Scrollbar(root, orient=VERTICAL, command=history.yview)
-    s.grid(column=1, row=0, sticky=(N, S))
-    history.configure(yscrollcommand=s.set)
-    fillingHistory(history, db)
-
-    # l = Listbox(frame2, height=5)
-    # l.grid(column=0, row=0, sticky=(N, W, E, S))
-    # s = ttk.Scrollbar(frame2, orient=VERTICAL, command=l.yview)
+    # history = ttk.Treeview(frame2, height=100)
+    # history.grid(column=0, row=0, sticky=(N, W, E, S))
+    # s = ttk.Scrollbar(root, orient=VERTICAL, command=history.yview)
     # s.grid(column=1, row=0, sticky=(N, S))
-    # l['yscrollcommand'] = s.set
-    # for i in range(1, 101):
-    #     l.insert('end', 'Line %d of 100' % i)
+    # history.configure(yscrollcommand=s.set)
+    # fillingHistory(history, db)
+
+    l = Listbox(frame2, height=5)
+    l.grid(column=0, row=0, sticky=(N, W, E, S))
+    s = ttk.Scrollbar(frame2, orient=VERTICAL, command=l.yview)
+    s.grid(column=1, row=0, sticky=(N, S))
+    l['yscrollcommand'] = s.set
+    for i in range(1, 101):
+        l.insert('end', 'Line %d of 100' % i)
 
 
     #parameters
     f_params = ttk.Frame(frame1)
     f_params.grid(row=4, column=0, columnspan=8)
 
-    def add_line():
-        tk.Entry(f_params, text='key').grid(row=2, column=0)
-        tk.Entry(f_params, text='value').grid(row=2, column=4)
-
     tk.Label(f_params, text="Params").grid(row=0, column=0)
-    tk.Entry(f_params, text='key').grid(row=1, column=0)
-    tk.Entry(f_params, text='value').grid(row=1, column=4)
+
+    def add_line():
+        entryKey = tk.Entry(f_params, text='key')
+        entryKey.grid(row=len(params), column=0)
+        entryValue = tk.Entry(f_params, text='value')
+        entryValue.grid(row=len(params), column=4)
+        tk.Entry(f_params, text='value').grid(row=len(params), column=4)
+        params[entryKey] = entryValue
+
+    params = {
+        tk.Entry(f_params, text='key').grid(row=1, column=0): tk.Entry(f_params, text='value').grid(row=1, column=4)}
     tk.Button(f_params, text="+", command=add_line).grid(row=1, column=8)
 
     #body
     f_body = ttk.Frame(frame1)
-    f_body.grid(row=8, column=0, columnspan=8)
+    f_body.grid(row=10, column=0, columnspan=8)
 
     def add_line():
         tk.Entry(f_body, text='key').grid(row=2, column=0)
@@ -263,7 +277,7 @@ def render_packed(root, db=None):
 
     #headers
     f_headers = ttk.Frame(frame1)
-    f_headers.grid(row=14, column=0, columnspan=8)
+    f_headers.grid(row=16, column=0, columnspan=8)
 
     def add_line():
         tk.Entry(f_headers, text='key').grid(row=2, column=0)
