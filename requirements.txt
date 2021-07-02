@@ -1,0 +1,9 @@
+certifi==2021.5.30
+chardet==4.0.0
+idna==2.10
+prettytable==2.1.0
+PyYAML==5.4.1
+requests==2.25.1
+tk==0.1.0
+urllib3==1.26.6
+wcwidth==0.2.5
