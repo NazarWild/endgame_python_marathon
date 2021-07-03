@@ -36,7 +36,6 @@ class workWithDb:
               f'VALUES ("{h_method}", "{url}", "{body}", "{params}", "{headers}", {status})'
         self.req.execute(sql)
         self.conn.commit()
-        print(self.req.rowcount, "record inserted.")
         return self.req.lastrowid
 
     def updateRequests(self, req_id, url, h_method, status, params=None, body=None, headers=None):
@@ -45,7 +44,6 @@ class workWithDb:
                          f'params = "{params}", headers = "{headers}, status = {status}" '
                          f"WHERE id = {req_id};")
         self.conn.commit()
-        print(self.req.rowcount, "record updated.")
 
     def selectRequests(self, req_id):
         self.req.execute(f"SELECT * FROM Requests WHERE id = {req_id}")
@@ -77,27 +75,26 @@ class workWithDb:
         self.req.execute("INSERT INTO Responses (req_id, resp_code, result)"
                          f'VALUES({req_id}, {resp_code}, "{result}")')
         self.conn.commit()
-        print(self.req.rowcount, "record inserted.")
 
     def updateResponses(self, req_id, resp_code, result):
         self.req.execute(f"UPDATE Responses SET "
                          f'resp_code = {resp_code}, result = "{result}" '
                          f"WHERE id = {req_id}")
         self.conn.commit()
-        print(self.req.rowcount, "record updated.")
 
     def deleteFromResponses(self, req_id):
         self.req.execute(f"DELETE FROM Responses WHERE id = {req_id};")
         self.conn.commit()
-        print(self.req.rowcount, "record deleted.")
 
     def history_show(self):
         print('---Request history---')
         self.req.execute(f"SELECT * FROM Requests")
         x = PrettyTable()
         x.field_names = ['..', 'Method', 'URL', 'Request body', 'Params', 'Headers', 'Status']
-        for i in self.req.fetchall():
-            x.add_row(i)
+        num = 10
+        selected = self.req.fetchall()
+        for i in range(0, num):
+            x.add_row(selected[i])
         print(x.get_string(fields=['..', 'Method', 'URL', 'Request body', 'Params', 'Status']))
         req_id = input('Enter request index to view full info, or "q" to quit: ')
         while req_id != 'q':
