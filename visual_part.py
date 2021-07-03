@@ -96,12 +96,12 @@ def widgetsToDict(widgDict):
     return dick
 
 
-def methods_changed(event):
-    print(f'New method selected!')
-
-
-def views_changed(event):
-    print(f'New view selected!')
+# def methods_changed(event):
+#     print(f'New method selected!')
+#
+#
+# def views_changed(event):
+#     print(f'New view selected!')
 
 
 def render_packed(root, db=None):
@@ -126,7 +126,7 @@ def render_packed(root, db=None):
     meth = tk.StringVar()
     methods = ttk.Combobox(frame1, textvariable=meth, values=('GET', 'POST', 'PATCH', 'PUT', 'DELETE'))
     methods.current(0)
-    methods.bind('<<ComboboxSelected>>', methods_changed)
+    # methods.bind('<<ComboboxSelected>>', methods_changed)
     methods.grid(row=0, column=0, columnspan=2)
 
     url = StringVar()
@@ -135,7 +135,7 @@ def render_packed(root, db=None):
 
     def send_request():
         data = manual_start(db, url=url_entry.get(), method=methods.get(), params=widgetsToDict(params),
-                            headers=widgetsToDict(headers), auth=None, body=widgetsToDict(body), trig=False)
+                            headers=widgetsToDict(headers), auth=None, body=widgetsToDict(body), trig=False, label=info)
         fillingHistory(history, db)
         if data:
             if res_view.get() == "TreeView":
@@ -149,6 +149,9 @@ def render_packed(root, db=None):
     send_button = tk.Button(frame1, text="SEND", command=send_request)
     send_button.grid(row=0, column=7, columnspan=2)
 
+    #info label
+    info = tk.Label(frame1, text="", bg="#98FB98")
+    info.grid(row=50, rowspan=5, column=0, columnspan=8)
 
     #parameters
     f_params = ttk.Frame(frame1)
@@ -221,7 +224,7 @@ def render_packed(root, db=None):
     r_view = tk.StringVar()
     res_view = ttk.Combobox(frame1, textvariable=r_view, values=('TreeView', 'Table', 'Yaml', 'Raw', 'Json'))
     res_view.current(0)
-    res_view.bind('<<ComboboxSelected>>', views_changed)
+    # res_view.bind('<<ComboboxSelected>>', views_changed)
     res_view.grid(row=22, rowspan=3, column=0, columnspan=8)
 
     #history tab
