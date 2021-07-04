@@ -116,8 +116,8 @@ def render_packed(root, db=None):
     frame2.grid()
 
     # add frames to notebook
-    notebook.add(frame1, text='Main')
-    notebook.add(frame2, text='History')
+    notebook.add(frame1, text='MAIN')
+    notebook.add(frame2, text='HISTORY')
 
     tree = ttk.Treeview(frame1, height=100)
     tree.column('#0', width=820, stretch=YES)
@@ -249,7 +249,7 @@ def visual_start(db):
     root.resizable(False, False)
 
     s = ttk.Style()
-    s.theme_use('alt')
+    s.theme_use('default')
     # ('aqua', 'step', 'clam', 'alt', 'default', 'classic')
 
     render_packed(root, db=db)
