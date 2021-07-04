@@ -151,7 +151,7 @@ def render_packed(root, db=None):
 
     #info label
     info = tk.Label(frame1, text="", bg="#98FB98")
-    info.grid(row=50, rowspan=5, column=0, columnspan=8)
+    info.grid(row=26, rowspan=3, column=0, columnspan=8)
 
     #parameters
     f_params = ttk.Frame(frame1)
