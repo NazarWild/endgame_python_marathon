@@ -108,9 +108,10 @@ def render_packed(root, db=None):
     notebook = ttk.Notebook(root, height=1170)
     notebook.grid(row=0, column=0)
 
+
     # create frames
-    frame1 = ttk.Frame(notebook)
-    frame2 = ttk.Frame(notebook)
+    frame1 = tk.Frame(notebook, bg="#F0E68C")
+    frame2 = tk.Frame(notebook, bg="#F0E68C")
 
     frame1.grid()
     frame2.grid()
@@ -133,6 +134,10 @@ def render_packed(root, db=None):
     url_entry = tk.Entry(frame1, text='key', textvariable=url)
     url_entry.grid(row=0, column=3, columnspan=4)
 
+    #info label
+    info = tk.Label(frame1, text="", bg="#F0E68C", width=52)
+    info.grid(row=1, rowspan=3, column=0, columnspan=8)
+
     def send_request():
         data = manual_start(db, url=url_entry.get(), method=methods.get(), params=widgetsToDict(params),
                             headers=widgetsToDict(headers), auth=None, body=widgetsToDict(body), trig=False, label=info)
@@ -146,15 +151,11 @@ def render_packed(root, db=None):
             # if res_view.get() == "Table":
             #     funcForTable(tree, data)
 
-    send_button = tk.Button(frame1, text="SEND", command=send_request)
+    send_button = tk.Button(frame1, text="SEND", command=send_request, bg="Gold")
     send_button.grid(row=0, column=7, columnspan=2)
 
-    #info label
-    info = tk.Label(frame1, text="", bg="#98FB98")
-    info.grid(row=26, rowspan=3, column=0, columnspan=8)
-
     #parameters
-    f_params = ttk.Frame(frame1)
+    f_params = tk.Frame(frame1, bg="#BDB76B")
     f_params.grid(row=4, column=0, columnspan=8)
 
     tk.Label(f_params, text="Params").grid(row=0, column=0)
@@ -176,7 +177,7 @@ def render_packed(root, db=None):
     tk.Button(f_params, text="+", command=add_params).grid(row=1, column=8)
 
     #body
-    f_body = ttk.Frame(frame1)
+    f_body = tk.Frame(frame1, bg="#BDB76B")
     f_body.grid(row=10, column=0, columnspan=8)
 
     tk.Label(f_body, text="Body").grid(row=0, column=0)
@@ -198,7 +199,7 @@ def render_packed(root, db=None):
     tk.Button(f_body, text="+", command=add_body).grid(row=1, column=8)
 
     #headers
-    f_headers = ttk.Frame(frame1)
+    f_headers = tk.Frame(frame1, bg="#BDB76B")
     f_headers.grid(row=16, column=0, columnspan=8)
 
     tk.Label(f_headers, text="Headers").grid(row=0, column=0)
