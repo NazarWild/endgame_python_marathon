@@ -91,8 +91,11 @@ class workWithDb:
         self.req.execute(f"SELECT * FROM Requests")
         x = PrettyTable()
         x.field_names = ['..', 'Method', 'URL', 'Request body', 'Params', 'Headers', 'Status']
-        num = 10
         selected = self.req.fetchall()
+        num = len(selected)
+        if num > 10:
+            num = 10
+        print(selected)
         for i in range(0, num):
             x.add_row(selected[i])
         print(x.get_string(fields=['..', 'Method', 'URL', 'Request body', 'Params', 'Status']))
