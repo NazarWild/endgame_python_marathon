@@ -120,7 +120,7 @@ def render_packed(root, db=None):
     notebook.add(frame1, text='MAIN')
     notebook.add(frame2, text='HISTORY')
 
-    tree = ttk.Treeview(frame1, height=100)
+    tree = ttk.Treeview(frame1, height=100, style="mystyle.Treeview")
     tree.column('#0', width=820, stretch=YES)
     tree.grid(row=3, rowspan=100, column=9, columnspan=8)
 
@@ -228,7 +228,7 @@ def render_packed(root, db=None):
     ttk.Button(f_headers, text="+", command=add_headers).grid(row=1, column=8)
 
     #history tab
-    history = ttk.Treeview(frame2, selectmode='browse')
+    history = ttk.Treeview(frame2, selectmode='browse', style="mystyle.Treeview")
     history.pack(side='left')
 
     vsb = ttk.Scrollbar(frame2, orient="vertical", command=history.yview)
@@ -256,8 +256,14 @@ def visual_start(db):
     style.configure('TButton', background='#7B68EE', foreground='Black')
     style.configure('TEntry', background='#AFEEEE')
     style.configure('TFrame', background='#4682B4')
-    style.configure('Treeview', background='#FF00FF')
     style.configure('TCombobox')
+
+    #https://httpbin.org/get
+
+    style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Calibri', 11))  # Modify the font of the body
+    style.configure("mystyle.Treeview.Heading", font=('Calibri', 13, 'bold'))  # Modify the font of the headings
+    style.layout("mystyle.Treeview", [('mystyle.Treeview.treearea', {'sticky': 'nswe'})])  # Remove the borders
+
     # ('aqua', 'step', 'clam', 'alt', 'default', 'classic')
 
     root.mainloop()
