@@ -125,7 +125,7 @@ def render_packed(root, db=None):
 
     meth = tk.StringVar()
     methods = ttk.Combobox(frame1, textvariable=meth, values=('GET', 'POST', 'PATCH', 'PUT', 'DELETE'))
-    methods.current(0)
+    methods.current(1)
     # methods.bind('<<ComboboxSelected>>', methods_changed)
     methods.grid(row=0, column=0, columnspan=2)
 
@@ -238,6 +238,7 @@ def render_packed(root, db=None):
 
     fillingHistory(history, db)
 
+
 def visual_start(db):
     root = tk.Tk()
     root.title('Endgame')
@@ -248,7 +249,7 @@ def visual_start(db):
     root.resizable(False, False)
 
     s = ttk.Style()
-    s.theme_use('default')
+    s.theme_use('alt')
     # ('aqua', 'step', 'clam', 'alt', 'default', 'classic')
 
     render_packed(root, db=db)
