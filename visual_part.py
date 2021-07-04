@@ -64,13 +64,13 @@ def fillingHistory(history, bd):
     history.delete(*history.get_children())
     history['columns'] = ['ID', 'Method', 'URL', 'Request body', 'Params', 'Headers', 'Status']
     history.column('#0', width=0, stretch=NO)
-    history.column("ID", width=40, stretch=YES)
+    history.column("ID", width=50, stretch=YES)
     history.column("Method", width=80, stretch=YES)
     history.column("URL", width=300, stretch=YES)
-    history.column("Request body", stretch=YES)
-    history.column("Params", stretch=YES)
-    history.column("Headers", stretch=YES)
-    history.column("Status", stretch=YES)
+    history.column("Request body", width=250, stretch=YES)
+    history.column("Params", width=250, stretch=YES)
+    history.column("Headers", width=250, stretch=YES)
+    history.column("Status", width=100, stretch=YES)
     history.heading("ID", text="ID", anchor=CENTER)
     history.heading("Method", text="Method", anchor=CENTER)
     history.heading("URL", text="URL", anchor=CENTER)
@@ -122,28 +122,28 @@ def render_packed(root, db=None):
 
     tree = ttk.Treeview(frame1, height=100, style="mystyle.Treeview")
     tree.column('#0', width=820, stretch=YES)
-    tree.grid(row=3, rowspan=100, column=9, columnspan=8)
+    tree.grid(row=3, rowspan=100, column=0, columnspan=8)
 
     #response view
     r_view = tk.StringVar()
     res_view = ttk.Combobox(frame1, textvariable=r_view, values=('TreeView', 'Table', 'Yaml', 'Raw', 'Json'))
     res_view.current(0)
     # res_view.bind('<<ComboboxSelected>>', views_changed)
-    res_view.grid(row=0, rowspan=3, column=9, columnspan=8)
+    res_view.grid(row=0, rowspan=3, column=0, columnspan=8)
 
     meth = tk.StringVar()
     methods = ttk.Combobox(frame1, textvariable=meth, values=('GET', 'POST', 'PATCH', 'PUT', 'DELETE'))
     methods.current(0)
     # methods.bind('<<ComboboxSelected>>', methods_changed)
-    methods.grid(row=0, column=0, columnspan=2)
+    methods.grid(row=0, column=9, columnspan=2)
 
     url = StringVar()
     url_entry = ttk.Entry(frame1, text='key', textvariable=url)
-    url_entry.grid(row=0, column=3, columnspan=4)
+    url_entry.grid(row=0, column=12, columnspan=4)
 
     #info label
     info = tk.Label(frame1, text="", width=52, bg="#4682B4")
-    info.grid(row=1, rowspan=3, column=0, columnspan=8)
+    info.grid(row=1, rowspan=3, column=9, columnspan=8)
 
     def send_request():
         data = manual_start(db, url=url_entry.get(), method=methods.get(), params=widgetsToDict(params),
@@ -159,11 +159,11 @@ def render_packed(root, db=None):
             #     funcForTable(tree, data)
 
     send_button = ttk.Button(frame1, text="SEND", command=send_request)
-    send_button.grid(row=0, column=7, columnspan=2)
+    send_button.grid(row=0, column=16, columnspan=2)
 
     #parameters
     f_params = ttk.Frame(frame1)
-    f_params.grid(row=4, column=0, columnspan=8)
+    f_params.grid(row=4, column=9, columnspan=8)
 
     ttk.Label(f_params, text="Params").grid(row=0, column=0)
 
@@ -185,7 +185,7 @@ def render_packed(root, db=None):
 
     #body
     f_body = ttk.Frame(frame1)
-    f_body.grid(row=10, column=0, columnspan=8)
+    f_body.grid(row=10, column=9, columnspan=8)
 
     ttk.Label(f_body, text="Body").grid(row=0, column=0)
 
@@ -207,7 +207,7 @@ def render_packed(root, db=None):
 
     #headers
     f_headers = ttk.Frame(frame1)
-    f_headers.grid(row=16, column=0, columnspan=8)
+    f_headers.grid(row=16, column=9, columnspan=8)
 
     ttk.Label(f_headers, text="Headers").grid(row=0, column=0)
 
@@ -260,8 +260,8 @@ def visual_start(db):
 
     #https://httpbin.org/get
 
-    style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Calibri', 11))  # Modify the font of the body
-    style.configure("mystyle.Treeview.Heading", font=('Calibri', 13, 'bold'))  # Modify the font of the headings
+    style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Calibri', 14))  # Modify the font of the body
+    style.configure("mystyle.Treeview.Heading", font=('Calibri', 18, 'bold'))  # Modify the font of the headings
     style.layout("mystyle.Treeview", [('mystyle.Treeview.treearea', {'sticky': 'nswe'})])  # Remove the borders
 
     # ('aqua', 'step', 'clam', 'alt', 'default', 'classic')

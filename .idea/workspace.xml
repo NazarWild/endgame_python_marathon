@@ -74,7 +74,7 @@
       <workItem from="1625342263910" duration="1947000" />
       <workItem from="1625394939331" duration="1317000" />
       <workItem from="1625397758489" duration="734000" />
-      <workItem from="1625402337532" duration="5883000" />
+      <workItem from="1625402337532" duration="6447000" />
     </task>
     <servers />
   </component>
@@ -94,6 +94,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/endgame_python_marathon$endgame.coverage" NAME="endgame Coverage Results" MODIFIED="1625411036896" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/endgame_python_marathon$endgame.coverage" NAME="endgame Coverage Results" MODIFIED="1625411932385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
