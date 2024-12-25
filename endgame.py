@@ -21,6 +21,7 @@ class splitAction(argparse.Action):
 
 
 if __name__ == '__main__':
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--gui", help="launch GUI", action="store_true")
     parser.add_argument("--history", help="show/clear history", type=str, choices=["show", "clear"])
