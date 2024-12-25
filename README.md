@@ -34,7 +34,5 @@ optional arguments:
 ---
 Authors
 * Dykyy Nazar
-* Lomonos Andrii
-* Povalyaieva Daria
 
 	
